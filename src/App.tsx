@@ -70,51 +70,97 @@ const App = () => {
   console.log('📱 App state:', state);
 
   return (
-    <div className="min-h-screen bg-gray-50 py-8">
-      <div className="container mx-auto px-4">
-        {/* Header */}
-        <header className="text-center mb-12">
-          <h1 className="text-4xl font-bold text-gray-900 mb-4">
-            📊 Fiscal Wizard
-          </h1>
-          <p className="text-lg text-gray-600 mb-2">
-            Spanish IRPF Tax Calculator
-          </p>
-          <p className="text-sm text-gray-500">
-            Upload your Interactive Brokers CSV file to generate your tax report
-          </p>
-          
-          {/* Status indicator */}
-          <div className="mt-6 flex items-center justify-center space-x-6 text-sm">
-            <div className="flex items-center space-x-2">
-              <div className={`w-3 h-3 rounded-full ${
-                state.step === 'upload' ? 'bg-green-500' : 'bg-gray-300'
-              }`}></div>
-              <span className={state.step === 'upload' ? 'text-green-700 font-medium' : 'text-gray-600'}>
-                Upload
+    <div className="min-h-screen bg-slate-50 flex flex-col">
+      {/* Professional Header */}
+      <header className="gradient-bg text-white">
+        <div className="container mx-auto px-6 py-12">
+          <div className="text-center">
+            <div className="mb-6">
+              <div className="relative inline-block mx-auto">
+                <h1 className="brand-heading text-6xl font-bold mb-3 relative z-10 tracking-tight text-center">
+                  <span className="bg-gradient-to-r from-white via-blue-100 to-slate-200 bg-clip-text text-transparent">
+                    Fiscal Wizard
+                  </span>
+                </h1>
+
+              </div>
+
+            </div>
+            
+            <div className="max-w-2xl mx-auto space-y-4">
+              <p className="text-xl text-slate-100 font-light">
+                Calculadora Automática de IRPF para Inversores
+              </p>
+              <p className="text-slate-300 text-lg">
+                Genera automáticamente los valores exactos para cada casilla de la declaración a partir de tus operaciones Interactive Brokers
+              </p>
+            </div>
+            
+            <div className="mt-10 flex items-center justify-center space-x-8">
+              <div className="flex items-center space-x-3 bg-white/10 backdrop-blur px-4 py-2 rounded-full">
+                <div className="w-3 h-3 rounded-full bg-white"></div>
+                <span className="text-sm text-slate-200">Cálculo Preciso</span>
+              </div>
+              <div className="flex items-center space-x-3 bg-white/10 backdrop-blur px-4 py-2 rounded-full">
+                <div className="w-3 h-3 rounded-full bg-white"></div>
+                <span className="text-sm text-slate-200">Resultados Detallados</span>
+              </div>
+              <div className="flex items-center space-x-3 bg-white/10 backdrop-blur px-4 py-2 rounded-full">
+                <div className="w-3 h-3 rounded-full bg-white"></div>
+                <span className="text-sm text-slate-200">Cumplimiento Hacienda</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </header>
+      
+      {/* Progress indicator */}
+      <div className="bg-white border-b border-slate-200">
+        <div className="container mx-auto px-6 py-6">
+          <div className="flex items-center justify-center space-x-12">
+            <div className="status-indicator">
+              <div className={`w-8 h-8 rounded-full flex items-center justify-center ${
+                state.step === 'upload' ? 'bg-blue-600 text-white' : 'bg-slate-200 text-slate-600'
+              }`}>
+                {state.step === 'upload' ? '1' : '✓'}
+              </div>
+              <span className={state.step === 'upload' ? 'text-blue-600' : 'text-slate-600'}>
+                Subir Documento
               </span>
             </div>
             
-            <div className="flex items-center space-x-2">
-              <div className={`w-3 h-3 rounded-full ${
-                state.step === 'loading' ? 'bg-yellow-500 animate-pulse' : 'bg-gray-300'
-              }`}></div>
-              <span className={state.step === 'loading' ? 'text-yellow-700 font-medium' : 'text-gray-600'}>
-                Processing
+            <div className="w-16 h-0.5 bg-slate-300"></div>
+            
+            <div className="status-indicator">
+              <div className={`w-8 h-8 rounded-full flex items-center justify-center ${
+                state.step === 'loading' ? 'bg-blue-600 text-white animate-pulse' : 
+                state.step === 'report' ? 'bg-green-600 text-white' : 'bg-slate-200 text-slate-600'
+              }`}>
+                {state.step === 'loading' ? '⟳' : state.step === 'report' ? '✓' : '2'}
+              </div>
+              <span className={state.step === 'loading' ? 'text-blue-600' : 
+                            state.step === 'report' ? 'text-green-600' : 'text-slate-600'}>
+                Procesamiento
               </span>
             </div>
             
-            <div className="flex items-center space-x-2">
-              <div className={`w-3 h-3 rounded-full ${
-                state.step === 'report' ? 'bg-green-500' : 'bg-gray-300'
-              }`}></div>
-              <span className={state.step === 'report' ? 'text-green-700 font-medium' : 'text-gray-600'}>
-                Report
+            <div className="w-16 h-0.5 bg-slate-300"></div>
+            
+            <div className="status-indicator">
+              <div className={`w-8 h-8 rounded-full flex items-center justify-center ${
+                state.step === 'report' ? 'bg-green-600 text-white' : 'bg-slate-200 text-slate-600'
+              }`}>
+                {state.step === 'report' ? '✓' : '3'}
+              </div>
+              <span className={state.step === 'report' ? 'text-green-600' : 'text-slate-600'}>
+                Informe Fiscal
               </span>
             </div>
           </div>
-        </header>
-
+        </div>
+      </div>
+      
+      <div className="flex-grow container mx-auto px-6 py-12">
         {/* Main Content */}
         <main>
           {state.step === 'upload' && (
@@ -130,76 +176,183 @@ const App = () => {
           )}
           
           {state.step === 'report' && state.reportHtml && (
-            <div className="space-y-6">
-              {/* Reset button */}
+            <div className="space-y-8">
+              {/* Success header */}
               <div className="text-center">
-                <button
-                  onClick={resetApplication}
-                  className="bg-gray-100 hover:bg-gray-200 text-gray-700 px-6 py-2 rounded-md text-sm font-medium transition-colors"
-                >
-                  📊 Process Another File
-                </button>
+                <div className="inline-flex items-center justify-center w-16 h-16 bg-green-100 rounded-full mb-4">
+                  <span className="text-3xl">✓</span>
+                </div>
+                <h2 className="text-3xl font-bold text-slate-900 mb-2">
+                  Informe Fiscal Generado con Éxito
+                </h2>
+                <p className="text-slate-600 text-lg">
+                  Su informe IRPF está listo para su descarga y presentación
+                </p>
               </div>
-              
-              {/* Report preview */}
-              <div className="max-w-4xl mx-auto bg-white rounded-lg shadow-lg border border-gray-200">
-                <div className="border-b border-gray-200 px-6 py-4">
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <h2 className="text-xl font-semibold text-gray-900">
-                        🎉 Tax Report Generated Successfully
-                      </h2>
-                      <p className="text-sm text-gray-600 mt-1">
-                        Report ID: <code className="bg-gray-100 px-2 py-1 rounded text-xs">{state.reportId}</code>
-                      </p>
-                    </div>
-                    
-                    <div className="flex items-center space-x-3">
-                      {/* Download button */}
-                      <a
-                        href={`data:text/html;charset=utf-8,${encodeURIComponent(state.reportHtml)}`}
-                        download={`informe_fiscal_${state.reportId}.html`}
-                        className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md text-sm font-medium transition-colors flex items-center space-x-2 text-decoration-none"
-                      >
-                        <span>📥</span>
-                        <span>Download HTML</span>
-                      </a>
+
+              {/* Report card */}
+              <div className="max-w-5xl mx-auto">
+                <div className="card overflow-hidden">
+                  {/* Card header */}
+                  <div className="bg-gradient-to-r from-slate-900 to-slate-800 text-white px-8 py-6">
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <h3 className="text-2xl font-bold mb-2">Cálculo IRPF y Casillas Fiscales</h3>
+                        <div className="flex items-center space-x-4 text-slate-300">
+                          <span className="flex items-center">
+                            <span className="mr-2">🆔</span>
+                            ID: {state.reportId}
+                          </span>
+                          <span className="flex items-center">
+                            <span className="mr-2">📅</span>
+                            {new Date().toLocaleDateString('es-ES', { year: 'numeric', month: 'long', day: 'numeric' })}
+                          </span>
+                        </div>
+                      </div>
+                      
+                      <div className="text-right">
+                        <div className="text-sm text-slate-400 mb-1">Estado</div>
+                        <div className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-green-500/20 text-green-100 border border-green-500/30">
+                          <span className="w-2 h-2 bg-green-400 rounded-full mr-2 animate-pulse"></span>
+                          Validado
+                        </div>
+                      </div>
                     </div>
                   </div>
-                </div>
 
-                {/* Report preview */}
-                <div className="p-6 bg-gray-50">
-                  <h3 className="text-lg font-semibold mb-4">Report Preview:</h3>
-                  <div className="bg-white border border-gray-200 rounded p-4 max-h-96 overflow-y-auto">
-                    <pre className="text-xs text-gray-600 whitespace-pre-wrap">
-                      {state.reportHtml.length > 500 
-                        ? state.reportHtml.substring(0, 500) + '...' 
-                        : state.reportHtml
-                      }
-                    </pre>
+                  {/* Card body */}
+                  <div className="p-8 space-y-8">
+                    {/* Report features */}
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                      <div className="text-center p-4 bg-slate-50 rounded-lg">
+                        <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-3">
+                          <span className="text-blue-600 text-xl">🧮</span>
+                        </div>
+                        <h4 className="font-semibold text-slate-900 mb-1">Cálculo Automático</h4>
+                        <p className="text-sm text-slate-600">Procesa todas tus operaciones y calcula el IRPF exacto</p>
+                      </div>
+                      
+                      <div className="text-center p-4 bg-slate-50 rounded-lg">
+                        <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-3">
+                          <span className="text-green-600 text-xl">📝</span>
+                        </div>
+                        <h4 className="font-semibold text-slate-900 mb-1">Casillas Exactas</h4>
+                        <p className="text-sm text-slate-600">Genera los valores específicos para cada casilla del modelo 100</p>
+                      </div>
+                      
+                      <div className="text-center p-4 bg-slate-50 rounded-lg">
+                        <div className="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-3">
+                          <span className="text-purple-600 text-xl">✅</span>
+                        </div>
+                        <h4 className="font-semibold text-slate-900 mb-1">Listo para Presentar</h4>
+                        <p className="text-sm text-slate-600">Información completa para tu declaración de la renta</p>
+                      </div>
+                    </div>
+
+                    {/* Report preview */}
+                    <div>
+                      <h4 className="text-lg font-semibold text-slate-900 mb-4 flex items-center">
+                        <span className="mr-2">👁️</span>
+                        Vista Previa del Informe
+                      </h4>
+                      <div className="bg-slate-50 rounded-lg border border-slate-200 p-6">
+                        <div className="bg-white rounded-md border border-slate-200 p-4 max-h-96 overflow-y-auto">
+                          <pre className="text-xs text-slate-600 whitespace-pre-wrap font-mono">
+                            {state.reportHtml.length > 800 
+                              ? state.reportHtml.substring(0, 800) + '\n\n[... contenido del informe ...]' 
+                              : state.reportHtml
+                            }
+                          </pre>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Action buttons */}
+                    <div className="flex flex-col sm:flex-row gap-4 justify-center pt-6 border-t border-slate-200">
+                      <a
+                        href={`data:text/html;charset=utf-8,${encodeURIComponent(state.reportHtml)}`}
+                        download={`calculo_irpf_${state.reportId}.html`}
+                        className="btn-primary flex items-center justify-center text-decoration-none"
+                      >
+                        <span className="mr-2">📥</span>
+                        Descargar Informe Completo
+                      </a>
+                      
+                      <button
+                        onClick={resetApplication}
+                        className="btn-secondary flex items-center justify-center"
+                      >
+                        <span className="mr-2">📊</span>
+                        Procesar Nuevo Documento
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
           )}
         </main>
+      </div>
 
-        {/* Footer */}
-        <footer className="mt-16 py-8 border-t border-gray-200">
-          <div className="text-center text-sm text-gray-500 space-y-2">
-            <p>
-              💡 <strong>Tip:</strong> Make sure your CSV includes dividend and sale transactions
-            </p>
-            <p>
-              📋 <strong>Required Format:</strong> Interactive Brokers Activity Statement CSV
-            </p>
-            <p className="text-xs">
-              Generated reports contain official Spanish tax form boxes (casillas fiscales) for IRPF declaration
-            </p>
+        {/* Professional Footer */}
+        <footer className="mt-20 bg-slate-900 text-white w-full">
+          <div className="container mx-auto px-6 py-12">
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+              {/* App info */}
+              <div className="space-y-4">
+                <h3 className="text-xl font-bold brand-heading">Fiscal Wizard</h3>
+                <p className="text-slate-400 text-sm">
+                  Herramienta automática para el cálculo del IRPF y generación de valores específicos para cada casilla de la declaración.
+                </p>
+                <div className="flex space-x-3">
+                  <div className="w-8 h-8 bg-blue-600 rounded flex items-center justify-center text-xs font-bold">FW</div>
+                </div>
+              </div>
+              
+              {/* Features */}
+              <div className="space-y-4">
+                <h4 className="font-semibold text-slate-200">Características</h4>
+                <ul className="space-y-2 text-sm text-slate-400">
+                  <li>• Cálculo IRPF Automático</li>
+                  <li>• Valores por Casilla Fiscal</li>
+                  <li>• Ganancias Patrimoniales</li>
+                  <li>• Operaciones Internacionales</li>
+                </ul>
+              </div>
+              
+              {/* Compatibility */}
+              <div className="space-y-4">
+                <h4 className="font-semibold text-slate-200">Compatibilidad</h4>
+                <ul className="space-y-2 text-sm text-slate-400">
+                  <li>• Interactive Brokers CSV</li>
+                  <li>• Dividendos y Ventas</li>
+                  <li>• Modelo 100 Hacienda</li>
+                  <li>• Todas las Casillas Oficiales</li>
+                </ul>
+              </div>
+              
+              {/* Legal */}
+              <div className="space-y-4">
+                <h4 className="font-semibold text-slate-200">Información</h4>
+                <ul className="space-y-2 text-sm text-slate-400">
+                  <li>• Cumplimiento Normativa</li>
+                  <li>• Privacidad de Datos</li>
+                  <li>• Términos de Uso</li>
+                  <li>• Política de Seguridad</li>
+                </ul>
+              </div>
+            </div>
+            
+            {/* Bottom section */}
+            <div className="border-t border-slate-800 mt-8 pt-8">
+              <div className="text-center">
+                <p className="text-xs text-slate-500">
+                  © 2024 Fiscal Wizard. Todos los derechos reservados.
+                </p>
+              </div>
+            </div>
           </div>
         </footer>
-      </div>
     </div>
   );
 };

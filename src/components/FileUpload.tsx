@@ -38,83 +38,136 @@ export const FileUpload: React.FC<FileUploadProps> = ({ onUpload, isLoading = fa
   console.log('📝 FileUpload component initialized');
 
   return (
-    <div className="max-w-2xl mx-auto">
-      <div
-        {...getRootProps()}
-        className={`
-          border-2 border-dashed rounded-lg p-12 text-center cursor-pointer transition-all duration-200
-          ${isDragActive 
-            ? 'border-blue-500 bg-blue-50' 
-            : 'border-gray-300 hover:border-gray-400 bg-white'
-          }
-          ${isLoading ? 'opacity-50 pointer-events-none' : ''}
-        `}
-      >
-        <input {...getInputProps()} />
-        
-        <div className="space-y-4">
-          {/* Icon */}
-          <div className="text-6xl">
-            {isLoading ? (
-              <div className="animate-spin text-blue-600">⚙️</div>
-            ) : (
-              <div className="text-gray-400">📊</div>
-            )}
-          </div>
+    <div className="max-w-3xl mx-auto">
+      <div className="bg-white rounded-2xl shadow-xl border border-slate-200 p-8">
+        <div className="text-center mb-8">
+          <h2 className="text-2xl font-semibold text-slate-900 mb-3">
+            Subir Operaciones de Inversión
+          </h2>
+          <p className="text-slate-600">
+            Carga tu CSV de Interactive Brokers para calcular automáticamente el IRPF y obtener los valores exactos para cada casilla
+          </p>
+        </div>
+
+        <div
+          {...getRootProps()}
+          className={`
+            dropzone group relative overflow-hidden
+            ${isDragActive 
+              ? 'border-blue-600 bg-blue-50/50' 
+              : 'border-slate-300 hover:border-slate-400'
+            }
+            ${isLoading ? 'opacity-60' : 'cursor-pointer hover:bg-slate-50'}
+          `}
+        >
+          <input {...getInputProps()} />
           
-          {/* Messages */}
-          <div>
-            {isLoading ? (
-              <h3 className="text-xl font-semibold text-gray-900 mb-2">
-                Processing file...
-              </h3>
-            ) : isDragActive ? (
-              <h3 className="text-xl font-semibold text-blue-600 mb-2">
-                Drop your CSV file here
-              </h3>
-            ) : (
-              <h3 className="text-xl font-semibold text-gray-900 mb-2">
-                Drop your CSV file here, or click to browse
-              </h3>
-            )}
-            
-            <p className="text-gray-600">
-              {isLoading 
-                ? 'Your Interactive Brokers CSV is being processed'
-                : 'Supports Interactive Brokers CSV format'
-              }
-            </p>
-          </div>
-          
-          {/* File info (when file is selected) */}
-          {isDragActive && (
-            <div className="text-sm text-gray-500">
-              File will be validated before upload
+          <div className="relative z-10 space-y-6">
+            {/* Icon with background */}
+            <div className="flex justify-center">
+              <div className="relative">
+                <div className="w-20 h-20 bg-blue-100 rounded-full flex items-center justify-center group-hover:bg-blue-200 transition-colors">
+                  {isLoading ? (
+                    <div className="animate-spin text-blue-600 text-2xl">⟳</div>
+                  ) : (
+                    <div className="text-blue-600 text-3xl">📄</div>
+                  )}
+                </div>
+                {!isLoading && (
+                  <div className="absolute -bottom-1 -right-1 w-6 h-6 bg-green-500 rounded-full flex items-center justify-center">
+                    <span className="text-white text-xs">+</span>
+                  </div>
+                )}
+              </div>
             </div>
-          )}
+            
+            {/* Content */}
+            <div className="space-y-3">
+              {isLoading ? (
+                <>
+                  <h3 className="text-xl font-semibold text-slate-900">
+                    Procesando documento...
+                  </h3>
+                  <p className="text-slate-600">
+                    Su fichero CSV está siendo analizado y procesado
+                  </p>
+                </>
+              ) : isDragActive ? (
+                <>
+                  <h3 className="text-xl font-semibold text-blue-600">
+                    Suelte el fichero aquí
+                  </h3>
+                  <p className="text-blue-600/80">
+                    El documento será validado automáticamente
+                  </p>
+                </>
+              ) : (
+                <>
+                  <h3 className="text-xl font-semibold text-slate-900">
+                    Arrastre su CSV aquí, o haga clic para seleccionar
+                  </h3>
+                  <p className="text-slate-600">
+                    Formato CSV de Interactive Brokers Activity Statement
+                  </p>
+                </>
+              )}
+            </div>
+            
+            {/* Action button */}
+            {!isLoading && !isDragActive && (
+              <div className="flex justify-center">
+                <span className="inline-flex items-center px-6 py-3 border border-slate-300 shadow-sm text-sm font-medium rounded-lg text-slate-700 bg-white hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all">
+                  <span className="mr-2">📁</span>
+                  Examinar ficheros
+                </span>
+              </div>
+            )}
+          </div>
         </div>
         
         {/* Error display */}
         {error && (
-          <div className="mt-6 p-4 bg-red-50 border border-red-200 rounded-md">
-            <div className="flex items-center">
-              <span className="text-red-600 mr-2">❌</span>
-              <p className="text-red-800 font-medium">{error}</p>
+          <div className="mt-6 p-4 bg-red-50 border border-red-200 rounded-xl">
+            <div className="flex items-start">
+              <span className="text-red-600 mr-3 mt-0.5">⚠️</span>
+              <div>
+                <p className="text-red-900 font-semibold mb-1">Error en la validación</p>
+                <p className="text-red-800 text-sm">{error}</p>
+              </div>
             </div>
           </div>
         )}
         
-        {/* Help text */}
+        {/* Requirements */}
         {!isLoading && !error && (
-          <div className="mt-6 text-sm text-gray-500">
-            <p className="mb-2">
-              <strong>File requirements:</strong>
+          <div className="mt-8 p-6 bg-slate-50 rounded-xl">
+            <h4 className="font-semibold text-slate-900 mb-4 flex items-center">
+              <span className="mr-2">ℹ️</span>
+              Requisitos del documento
+            </h4>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
+              <div className="flex items-start space-x-2">
+                <span className="text-green-600 mt-0.5">✓</span>
+                <span className="text-slate-700">Formato CSV Interactive Brokers</span>
+              </div>
+              <div className="flex items-start space-x-2">
+                <span className="text-green-600 mt-0.5">✓</span>
+                <span className="text-slate-700">Tamaño máximo: 1MB</span>
+              </div>
+              <div className="flex items-start space-x-2">
+                <span className="text-green-600 mt-0.5">✓</span>
+                <span className="text-slate-700">Columnas requeridas completas</span>
+              </div>
+            </div>
+            <p className="text-xs text-slate-500 mt-4">
+              Columnas necesarias: Currency, AssetCategory, Symbol, Date/Time, Quantity, T. Price, Proceeds, Commission, etc.
             </p>
-            <ul className="text-left space-y-1">
-              <li>• CSV format from Interactive Brokers</li>
-              <li>• Maximum file size: 1MB</li>
-              <li>• Required columns: Currency, AssetCategory, Symbol, Date/Time, etc.</li>
-            </ul>
+            
+            <div className="mt-4 p-3 bg-amber-50 border border-amber-200 rounded-lg">
+              <p className="text-xs text-amber-800">
+                <strong>Aviso:</strong> Verifique la exactitud de sus datos. Esta herramienta realiza cálculos matemáticos, pero no se responsabiliza de errores en los datos originales. Consulte con un experto fiscal para validación.
+              </p>
+            </div>
           </div>
         )}
       </div>
