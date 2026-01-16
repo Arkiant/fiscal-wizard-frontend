@@ -59,6 +59,7 @@ export interface FileUploadProps {
   onUpload: (file: File) => void;
   isLoading?: boolean;
   error?: string | null;
+  onShowTutorial?: () => void;
 }
 
 export interface ReportViewerProps {

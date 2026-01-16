@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { FileUpload } from './components/FileUpload';
 import { Loading } from './components/Loading';
 import StepIndicator from './components/StepIndicator';
+import TutorialPage from './components/TutorialPage';
 import { taxApi } from './services/api';
 import './index.css';
 
@@ -12,6 +13,8 @@ interface AppState {
   error: string | null;
 }
 
+type PageType = 'main' | 'tutorial';
+
 console.log('🎯 App.tsx loading...');
 
 const App = () => {
@@ -21,6 +24,8 @@ const App = () => {
     reportHtml: null,
     error: null,
   });
+  
+  const [currentPage, setCurrentPage] = useState<PageType>('main');
 
   const handleFileUpload = async (file: File) => {
     try {
@@ -68,7 +73,22 @@ const App = () => {
     });
   };
 
+  const showTutorial = () => {
+    console.log('📚 Navigating to tutorial page...');
+    setCurrentPage('tutorial');
+  };
+
+  const goBackToMain = () => {
+    console.log('🏠 Returning to main page...');
+    setCurrentPage('main');
+  };
+
   console.log('📱 App state:', state);
+
+  // Show tutorial page if requested
+  if (currentPage === 'tutorial') {
+    return <TutorialPage onBack={goBackToMain} />;
+  }
 
   return (
     <div className="min-h-screen bg-slate-50 flex flex-col">
@@ -113,6 +133,7 @@ const App = () => {
               onUpload={handleFileUpload} 
               isLoading={state.step === 'loading'}
               error={state.error}
+              onShowTutorial={showTutorial}
             />
           )}
           

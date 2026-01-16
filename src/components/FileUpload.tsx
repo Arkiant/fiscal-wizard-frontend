@@ -1,11 +1,15 @@
 import React, { useState, useCallback } from 'react';
 import { useDropzone } from 'react-dropzone';
+import { 
+  InformationCircleIcon,
+  QuestionMarkCircleIcon 
+} from '@heroicons/react/24/outline';
 import { validateFile } from '../utils/validation';
 import type { FileUploadProps } from '../types';
 
 console.log('✅ FileUpload.tsx loading...');
 
-export const FileUpload: React.FC<FileUploadProps> = ({ onUpload, isLoading = false, error }) => {
+export const FileUpload: React.FC<FileUploadProps> = ({ onUpload, isLoading = false, error, onShowTutorial }) => {
   const [dragActive, setDragActive] = useState(false);
 
   const onDrop = useCallback((acceptedFiles: File[]) => {
@@ -143,7 +147,7 @@ export const FileUpload: React.FC<FileUploadProps> = ({ onUpload, isLoading = fa
         {!isLoading && !error && (
           <div className="mt-8 p-6 bg-slate-50 rounded-xl">
             <h4 className="font-semibold text-slate-900 mb-4 flex items-center">
-              <span className="mr-2">ℹ️</span>
+              <InformationCircleIcon className="w-5 h-5 mr-2 text-blue-600" />
               Requisitos del documento
             </h4>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
@@ -167,6 +171,26 @@ export const FileUpload: React.FC<FileUploadProps> = ({ onUpload, isLoading = fa
                 <strong>Aviso:</strong> Verifique la exactitud de sus datos. Esta herramienta realiza cálculos matemáticos, pero no se responsabiliza de errores en los datos originales. Consulte con un experto fiscal para validación.
               </p>
             </div>
+          </div>
+        )}
+
+        {/* Tutorial Section */}
+        {!isLoading && !error && (
+          <div className="mt-8 p-6 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl border border-blue-200">
+            <h4 className="font-semibold text-slate-900 mb-4 flex items-center">
+              <QuestionMarkCircleIcon className="w-5 h-5 mr-2 text-blue-600" />
+              ¿Necesitas ayuda para generar el CSV?
+            </h4>
+            <p className="text-slate-600 mb-4">
+              Sigue nuestro tutorial paso a paso para aprender a generar el archivo CSV desde Interactive Brokers usando Consultas Flex.
+            </p>
+            <button
+              onClick={onShowTutorial}
+              className="inline-flex items-center space-x-2 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors"
+            >
+              <span className="mr-2">📖</span>
+              Ver Tutorial
+            </button>
           </div>
         )}
       </div>
