@@ -8,7 +8,12 @@ import type { FileUploadProps } from "../types";
 
 console.log("FileUpload.tsx loading...");
 
-export function FileUpload({ onUpload, isLoading = false, error, onShowTutorial }: FileUploadProps) {
+export function FileUpload({
+  onUpload,
+  isLoading = false,
+  error,
+  onShowTutorial,
+}: FileUploadProps) {
   const onDrop = (acceptedFiles: File[]) => {
     if (acceptedFiles.length === 0) return;
     const file = acceptedFiles[0];
@@ -29,19 +34,26 @@ export function FileUpload({ onUpload, isLoading = false, error, onShowTutorial 
     <div className="max-w-4xl mx-auto space-y-8">
       <div className="card bg-white overflow-hidden">
         <div className="bg-gradient-to-r from-slate-900 to-slate-800 text-white px-8 py-6">
-          <h3 className="text-2xl font-bold">Subir Operaciones de Inversion</h3>
-          <p className="text-slate-300 mt-2">
-            Carga tu CSV de Interactive Brokers para calcular automaticamente el IRPF y obtener los valores exactos para cada casilla
+          <h3 className="text-2xl font-bold text-center">
+            Subir Operaciones de Inversion
+          </h3>
+          <p className="text-slate-300 mt-2 text-center">
+            Carga tu CSV de Interactive Brokers para calcular automaticamente el
+            IRPF y obtener los valores exactos para cada casilla
           </p>
         </div>
         <div className="p-8">
-          <div className={`dropzone group ${isDragActive ? 'dragover' : ''} ${isLoading ? 'loading' : ''}`}>
+          <div
+            className={`dropzone group ${isDragActive ? "dragover" : ""} ${isLoading ? "loading" : ""}`}
+          >
             <input {...getInputProps()} />
 
             <div className="flex flex-col items-center justify-center space-y-6 py-8">
               {/* Animated Icon Container */}
               <div className="relative">
-                <div className={`w-20 h-20 rounded-full bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center shadow-lg ${isDragActive ? 'animate-pulse' : ''} transition-all duration-300`}>
+                <div
+                  className={`w-20 h-20 rounded-full bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center shadow-lg ${isDragActive ? "animate-pulse" : ""} transition-all duration-300`}
+                >
                   {isLoading ? (
                     <div className="animate-spin text-white text-2xl">⟳</div>
                   ) : (
@@ -51,31 +63,53 @@ export function FileUpload({ onUpload, isLoading = false, error, onShowTutorial 
 
                 {/* Floating upload arrow */}
                 {!isLoading && (
-                  <div className={`absolute -top-2 -right-2 w-8 h-8 bg-green-500 rounded-full flex items-center justify-center shadow-lg transform ${isDragActive ? 'animate-bounce' : 'group-hover:animate-bounce'} transition-all duration-300`}>
+                  <div
+                    className={`absolute -top-2 -right-2 w-8 h-8 bg-green-500 rounded-full flex items-center justify-center shadow-lg transform ${isDragActive ? "animate-bounce" : "group-hover:animate-bounce"} transition-all duration-300`}
+                  >
                     <span className="text-white text-sm">↑</span>
                   </div>
                 )}
 
                 {/* Ripple effect on hover */}
-                <div className={`absolute inset-0 rounded-full bg-blue-400 opacity-0 group-hover:opacity-20 scale-150 ${isDragActive ? 'animate-ping' : ''} transition-opacity duration-300`}></div>
+                <div
+                  className={`absolute inset-0 rounded-full bg-blue-400 opacity-0 group-hover:opacity-20 scale-150 ${isDragActive ? "animate-ping" : ""} transition-opacity duration-300`}
+                ></div>
               </div>
 
               {/* Text Content */}
               <div className="text-center space-y-3">
-                <h3 className={`text-xl font-bold ${isDragActive ? 'text-blue-700' : 'text-slate-800'} transition-colors duration-300`}>
-                  {isLoading ? "Procesando documento..." : isDragActive ? "¡Suelte el archivo aquí!" : "Suba su archivo CSV"}
+                <h3
+                  className={`text-xl font-bold ${isDragActive ? "text-blue-700" : "text-slate-800"} transition-colors duration-300`}
+                >
+                  {isLoading
+                    ? "Procesando documento..."
+                    : isDragActive
+                      ? "¡Suelte el archivo aquí!"
+                      : "Suba su archivo CSV"}
                 </h3>
 
-                <p className={`text-sm ${isDragActive ? 'text-blue-600' : 'text-slate-600'} transition-colors duration-300 max-w-md`}>
-                  {isLoading ? "Analizando sus operaciones de inversión..." : isDragActive ? "El archivo se procesará automáticamente" : "Arrastre y suelte su archivo CSV de Interactive Brokers aquí"}
+                <p
+                  className={`text-sm ${isDragActive ? "text-blue-600" : "text-slate-600"} transition-colors duration-300 max-w-md`}
+                >
+                  {isLoading
+                    ? "Analizando sus operaciones de inversión..."
+                    : isDragActive
+                      ? "El archivo se procesará automáticamente"
+                      : "Arrastre y suelte su archivo CSV de Interactive Brokers aquí"}
                 </p>
 
                 {/* File selection button */}
                 {!isLoading && !isDragActive && (
                   <button
                     type="button"
-                    className="mt-4 px-6 py-3 bg-gradient-to-r from-blue-500 to-indigo-600 text-white font-medium rounded-lg shadow-md hover:shadow-lg transform hover:scale-105 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
-                    onClick={() => (document.querySelector('input[type="file"]') as HTMLInputElement)?.click()}
+                    className="btn-primary mt-4"
+                    onClick={() =>
+                      (
+                        document.querySelector(
+                          'input[type="file"]'
+                        ) as HTMLInputElement
+                      )?.click()
+                    }
                   >
                     Seleccionar Archivo
                   </button>
@@ -84,7 +118,9 @@ export function FileUpload({ onUpload, isLoading = false, error, onShowTutorial 
                 {/* File type indicator */}
                 {!isLoading && (
                   <div className="flex items-center justify-center space-x-2 text-xs text-slate-500">
-                    <span className="px-2 py-1 bg-slate-100 rounded-full">CSV</span>
+                    <span className="px-2 py-1 bg-slate-100 rounded-full">
+                      CSV
+                    </span>
                     <span>•</span>
                     <span>Máx. 1MB</span>
                   </div>
@@ -107,7 +143,7 @@ export function FileUpload({ onUpload, isLoading = false, error, onShowTutorial 
             </div>
           </div>
           {error && (
-            <div className="mt-6 p-4 bg-red-50 border border-red-200 rounded-xl">
+            <div className="mt-6 p-4 bg-red-50 border border-slate-200 rounded-xl">
               <p className="text-red-800">{error}</p>
             </div>
           )}
@@ -121,18 +157,16 @@ export function FileUpload({ onUpload, isLoading = false, error, onShowTutorial 
             </div>
           )}
           {!isLoading && !error && (
-            <div className="mt-8 p-6 bg-blue-50 rounded-xl border border-blue-200">
+            <div className="mt-8 p-6 bg-blue-50 rounded-xl border border-slate-200">
               <h4 className="font-semibold text-slate-900 mb-4 flex items-center">
                 <QuestionMarkCircleIcon className="w-5 h-5 mr-2 text-blue-600" />
                 Necesitas ayuda para generar el CSV?
               </h4>
               <p className="text-slate-600 mb-4">
-                Sigue nuestro tutorial paso a paso para aprender a generar el archivo CSV desde Interactive Brokers
+                Sigue nuestro tutorial paso a paso para aprender a generar el
+                archivo CSV desde Interactive Brokers
               </p>
-              <button
-                onClick={onShowTutorial}
-                className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700"
-              >
+              <button onClick={onShowTutorial} className="btn-primary">
                 Ver Tutorial
               </button>
             </div>

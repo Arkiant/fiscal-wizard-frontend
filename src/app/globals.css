@@ -1,6 +1,167 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Base styles */
+body {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  -webkit-text-size-adjust: 100%;
+  -webkit-tap-highlight-color: transparent;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+.brand-heading {
+  font-family: 'Playfair Display', Georgia, serif;
+}
+
+@media (max-width: 768px) {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    overflow-x: hidden;
+  }
+
+  input, textarea, select {
+    font-size: 16px;
+  }
+}
+
+/* Button styles */
+.btn-primary {
+  background-color: #0f172a;
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  font-weight: 500;
+  transition: all 200ms;
+  box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  min-height: 44px;
+  min-width: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-primary:hover {
+  background-color: #1e293b;
+  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+}
+
+.btn-secondary {
+  background-color: white;
+  color: #334155;
+  border: 1px solid #cbd5e1;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  font-weight: 500;
+  transition: all 200ms;
+  box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  min-height: 44px;
+  min-width: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-secondary:hover {
+  background-color: #f8fafc;
+  border-color: #94a3b8;
+}
+
+.card {
+  background-color: white;
+  border-radius: 0.75rem;
+  box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  border: 1px solid #e2e8f0;
+}
+
+.dropzone {
+  position: relative;
+  border: 2px dashed #cbd5e1;
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  text-align: center;
+  transition: all 300ms;
+  background-color: white;
+}
+
+.dropzone:hover {
+  border-color: #94a3b8;
+  background-color: #f8fafc;
+}
+
+.dropzone.dragover {
+  border-color: #3b82f6;
+  background: linear-gradient(to bottom right, #eff6ff, #e0e7ff);
+  box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  transform: scale(1.02);
+}
+
+.dropzone.loading {
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+.status-indicator {
+  @apply flex items-center space-x-2 text-sm font-medium;
+}
+
+@media (max-width: 768px) {
+  .status-indicator {
+    @apply flex-col space-x-0 space-y-2;
+  }
+}
+
+.gradient-bg {
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+}
+
+/* Touch-friendly improvements */
+@media (hover: none) and (pointer: coarse) {
+  .dropzone {
+    @apply active:bg-slate-100 active:border-blue-500;
+  }
+
+  .btn-primary,
+  .btn-secondary {
+    @apply active:scale-95 transition-transform;
+  }
+
+  .status-indicator {
+    @apply active:bg-slate-100 active:scale-95 transition-all;
+  }
+}
+
+/* Improve tap targets on small screens */
+@media (max-width: 640px) {
+  .dropzone {
+    @apply min-h-[120px];
+  }
+
+  /* Increase spacing between interactive elements */
+  .space-x-6 {
+    @apply space-x-4;
+  }
+
+  /* Optimize reading flow */
+  p, span {
+    @apply leading-relaxed;
+  }
+}
+
+.text-gradient {
+  background: linear-gradient(135deg, #0f172a 0%, #334155 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
 
 /* Global styles */
 html {
@@ -35,17 +196,4 @@ body {
 
 .animation-delay-150 {
   animation-delay: 150ms;
-}
-
-/* Dropzone styles */
-.dropzone {
-  @apply relative border-2 border-dashed border-slate-300 rounded-xl p-6 md:p-12 text-center transition-all duration-300 bg-white;
-}
-
-.dropzone.dragover {
-  @apply border-blue-500 bg-gradient-to-br from-blue-50 to-indigo-50 shadow-lg scale-[1.02];
-}
-
-.dropzone.loading {
-  @apply opacity-60 pointer-events-none;
 }

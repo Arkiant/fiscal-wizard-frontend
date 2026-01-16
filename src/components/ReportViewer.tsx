@@ -1,8 +1,11 @@
-import React, { useState } from 'react';
-import { downloadHtmlFile } from '../utils/validation';
-import type { ReportViewerProps } from '../types';
+import React, { useState } from "react";
+import { downloadHtmlFile } from "../utils/validation";
+import type { ReportViewerProps } from "../types";
 
-export const ReportViewer: React.FC<ReportViewerProps> = ({ htmlContent, reportId }) => {
+export const ReportViewer: React.FC<ReportViewerProps> = ({
+  htmlContent,
+  reportId,
+}) => {
   const [isFullscreen, setIsFullscreen] = useState(false);
 
   const toggleFullscreen = () => {
@@ -14,93 +17,108 @@ export const ReportViewer: React.FC<ReportViewerProps> = ({ htmlContent, reportI
   };
 
   return (
-    <div className="max-w-6xl mx-auto">
-      <div className="bg-white rounded-lg shadow-lg border border-gray-200">
-        {/* Header */}
-        <div className="border-b border-gray-200 px-6 py-4">
+    <div className="max-w-6xl mx-auto space-y-8">
+      <div
+        className={`card bg-white overflow-hidden ${isFullscreen ? "hidden" : ""}`}
+      >
+        <div className="bg-gradient-to-r from-slate-900 to-slate-800 text-white px-8 py-6">
           <div className="flex items-center justify-between">
             <div>
-              <h2 className="text-xl font-semibold text-gray-900">
-                Tax Report Generated Successfully
-              </h2>
-              <p className="text-sm text-gray-600 mt-1">
-                Report ID: <code className="bg-gray-100 px-2 py-1 rounded text-xs">{reportId}</code>
+              <h3 className="text-2xl font-bold">Informe Fiscal Generado</h3>
+              <p className="text-slate-300 mt-2">
+                Visualización del reporte de IRPF con valores exactos para cada
+                casilla
+              </p>
+              <p className="text-slate-400 text-sm mt-1">
+                Report ID:{" "}
+                <code className="bg-slate-700 px-2 py-1 rounded text-xs">
+                  {reportId}
+                </code>
               </p>
             </div>
-            
+
             <div className="flex items-center space-x-3">
               {/* Download button */}
               <button
                 onClick={handleDownload}
-                className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md text-sm font-medium transition-colors flex items-center space-x-2"
+                className="btn-primary flex items-center space-x-2"
               >
                 <span>📥</span>
-                <span>Download HTML</span>
+                <span>Descargar HTML</span>
               </button>
-              
+
               {/* Fullscreen toggle */}
               <button
                 onClick={toggleFullscreen}
-                className="bg-gray-100 hover:bg-gray-200 text-gray-700 px-4 py-2 rounded-md text-sm font-medium transition-colors"
+                className="btn-secondary flex items-center space-x-2"
               >
                 {isFullscreen ? (
-                  <span className="flex items-center space-x-2">
+                  <>
                     <span>🗗</span>
-                    <span>Exit Fullscreen</span>
-                  </span>
+                    <span>Salir Pantalla Completa</span>
+                  </>
                 ) : (
-                  <span className="flex items-center space-x-2">
+                  <>
                     <span>⛶</span>
-                    <span>Fullscreen</span>
-                  </span>
+                    <span>Pantalla Completa</span>
+                  </>
                 )}
               </button>
             </div>
           </div>
         </div>
 
-        {/* Report Content */}
-        <div className={`
-          relative bg-gray-50
-          ${isFullscreen ? 'fixed inset-0 z-50 bg-white' : 'rounded-b-lg'}
-        `}>
-          {/* Close button for fullscreen */}
-          {isFullscreen && (
-            <button
-              onClick={toggleFullscreen}
-              className="absolute top-4 right-4 z-10 bg-red-500 hover:bg-red-600 text-white px-3 py-2 md:px-4 md:py-2 rounded-md text-sm font-medium min-h-[44px] min-w-[44px] active:scale-95 transition-transform"
-            >
-              <span className="hidden sm:inline">✕ Close</span>
-              <span className="sm:hidden">✕</span>
-            </button>
-          )}
-
-          {/* iframe with report */}
-          <iframe
-            srcDoc={htmlContent}
-            sandbox="allow-scripts allow-same-origin allow-forms allow-popups"
+        <div className="p-8">
+          {/* Report Content */}
+          <div
             className={`
-              w-full border-0
-              ${isFullscreen ? 'h-screen' : 'h-[70vh] md:h-[80vh]'}
-            `}
-            title="Fiscal Wizard Tax Report"
-          />
+            relative bg-slate-50 rounded-xl overflow-hidden
+            ${isFullscreen ? "fixed inset-0 z-50 bg-white" : ""}
+          `}
+          >
+            {/* Close button for fullscreen */}
+            {isFullscreen && (
+              <button
+                onClick={toggleFullscreen}
+                className="absolute top-4 right-4 z-10 bg-red-500 hover:bg-red-600 text-white px-3 py-2 md:px-4 md:py-2 rounded-lg text-sm font-medium min-h-[44px] min-w-[44px] active:scale-95 transition-transform"
+              >
+                <span className="hidden sm:inline">✕ Cerrar</span>
+                <span className="sm:hidden">✕</span>
+              </button>
+            )}
+
+            {/* iframe with report */}
+            <iframe
+              srcDoc={htmlContent}
+              sandbox="allow-scripts allow-same-origin allow-forms allow-popups"
+              className={`
+                w-full border-0
+                ${isFullscreen ? "h-screen" : "h-[70vh] md:h-[80vh]"}
+              `}
+              title="Fiscal Wizard Tax Report"
+            />
+          </div>
         </div>
 
         {/* Footer info */}
         {!isFullscreen && (
-          <div className="border-t border-gray-200 px-4 py-3 md:px-6 md:py-4 bg-gray-50">
-            <div className="flex flex-col md:flex-row md:items-center md:justify-between text-sm text-gray-600 space-y-3 md:space-y-0">
+          <div className="border-t border-slate-200 px-8 py-6 bg-slate-50">
+            <div className="flex flex-col md:flex-row md:items-center md:justify-between text-sm text-slate-600 space-y-3 md:space-y-0">
               <div className="text-center md:text-left">
-                <p className="text-xs md:text-sm">Generated by Fiscal Wizard - Spanish IRPF Calculator</p>
+                <p className="text-xs md:text-sm">
+                  Generado por Fiscal Wizard - Calculadora IRPF Española
+                </p>
                 <p className="text-xs mt-1">
-                  Report contains specific values for each Spanish tax form box (casillas)
+                  El informe contiene valores específicos para cada casilla del
+                  formulario fiscal español
                 </p>
               </div>
-              
+
               <div className="text-center md:text-right">
-                <p className="font-medium text-gray-900 text-xs md:text-sm">Interactive Brokers</p>
-                <p className="text-xs">Tax Year 2024</p>
+                <p className="font-medium text-slate-900 text-xs md:text-sm">
+                  Interactive Brokers
+                </p>
+                <p className="text-xs">Año Fiscal 2024</p>
               </div>
             </div>
           </div>

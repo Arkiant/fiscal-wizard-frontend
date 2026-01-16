@@ -39,7 +39,7 @@ export default function TutorialPage() {
         <div className="max-w-4xl mx-auto space-y-8">
           
           {/* Paso 1 */}
-          <div className="bg-white rounded-xl shadow-lg border border-slate-200 p-6 md:p-8">
+          <div className="card p-6 md:p-8">
             <div className="flex items-start space-x-4">
               <div className="w-12 h-12 bg-blue-500 text-white rounded-full flex items-center justify-center text-xl font-bold flex-shrink-0">
                 1
@@ -67,7 +67,7 @@ export default function TutorialPage() {
           </div>
 
           {/* Paso 2 */}
-          <div className="bg-white rounded-xl shadow-lg border border-slate-200 p-6 md:p-8">
+          <div className="card p-6 md:p-8">
             <div className="flex items-start space-x-4">
               <div className="w-12 h-12 bg-green-500 text-white rounded-full flex items-center justify-center text-xl font-bold flex-shrink-0">
                 2
@@ -101,7 +101,7 @@ export default function TutorialPage() {
                     </div>
                   </div>
                   
-                  <div className="bg-blue-50 rounded-lg p-4 border border-blue-200">
+                  <div className="bg-blue-50 rounded-lg p-4 border border-slate-200">
                     <h3 className="font-semibold text-blue-900 mb-2">En Opciones:</h3>
                     <div className="flex items-center space-x-2">
                       <span className="text-blue-600">✓</span>
@@ -114,7 +114,7 @@ export default function TutorialPage() {
           </div>
 
           {/* Paso 3 */}
-          <div className="bg-white rounded-xl shadow-lg border border-slate-200 p-6 md:p-8">
+          <div className="card p-6 md:p-8">
             <div className="flex items-start space-x-4">
               <div className="w-12 h-12 bg-purple-500 text-white rounded-full flex items-center justify-center text-xl font-bold flex-shrink-0">
                 3
@@ -143,7 +143,7 @@ export default function TutorialPage() {
                     </div>
                   </div>
                   
-                  <div className="bg-purple-50 rounded-lg p-4 border border-purple-200">
+                  <div className="bg-purple-50 rounded-lg p-4 border border-slate-200">
                     <h3 className="font-semibold text-purple-900 mb-3">En Opciones:</h3>
                     <div className="space-y-2">
                       {[
@@ -165,7 +165,7 @@ export default function TutorialPage() {
           </div>
 
           {/* Paso 4 */}
-          <div className="bg-white rounded-xl shadow-lg border border-slate-200 p-6 md:p-8">
+          <div className="card p-6 md:p-8">
             <div className="flex items-start space-x-4">
               <div className="w-12 h-12 bg-orange-500 text-white rounded-full flex items-center justify-center text-xl font-bold flex-shrink-0">
                 4
@@ -197,7 +197,7 @@ export default function TutorialPage() {
           </div>
 
           {/* Tips adicionales */}
-          <div className="bg-amber-50 rounded-xl p-6 border border-amber-200">
+          <div className="bg-amber-50 rounded-xl p-6 border border-slate-200">
             <h3 className="font-semibold text-amber-900 mb-3 flex items-center">
               <span className="mr-2">💡</span>
               Tips Adicionales
@@ -217,7 +217,7 @@ export default function TutorialPage() {
         <div className="container mx-auto px-4 text-center">
           <button
             onClick={() => router.back()}
-            className="bg-slate-900 hover:bg-slate-800 text-white px-6 py-3 rounded-lg font-medium transition-all duration-200 shadow-sm hover:shadow-md min-h-[44px] min-w-[44px] inline-flex items-center"
+            className="btn-primary inline-flex items-center"
           >
             <ArrowLeftIcon className="w-4 h-4 mr-2" />
             Volver al Upload
