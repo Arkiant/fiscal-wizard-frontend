@@ -1,7 +1,7 @@
 console.log('✅ api.ts loaded');
 
-// Use environment variable for API base URL, fallback to localhost for development
-const API_BASE = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8080/api';
+// Use environment variable for API base URL, fallback to production URL for safety
+const API_BASE = import.meta.env.VITE_API_BASE_URL || 'https://fiscal-wizard-api.onrender.com/api';
 
 console.log('🔗 API Base URL:', API_BASE);
 

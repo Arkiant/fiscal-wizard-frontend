@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { FileUpload } from './components/FileUpload';
 import { Loading } from './components/Loading';
+import StepIndicator from './components/StepIndicator';
 import { taxApi } from './services/api';
 import './index.css';
 
@@ -73,11 +74,11 @@ const App = () => {
     <div className="min-h-screen bg-slate-50 flex flex-col">
       {/* Professional Header */}
       <header className="gradient-bg text-white">
-        <div className="container mx-auto px-6 py-12">
+        <div className="container mx-auto px-4 py-8 md:px-6 md:py-12">
           <div className="text-center">
-            <div className="mb-6">
+            <div className="mb-4 md:mb-6">
               <div className="relative inline-block mx-auto">
-                <h1 className="brand-heading text-6xl font-bold mb-3 relative z-10 tracking-tight text-center">
+                <h1 className="brand-heading text-4xl md:text-5xl lg:text-6xl font-bold mb-2 md:mb-3 relative z-10 tracking-tight text-center">
                   <span className="bg-gradient-to-r from-white via-blue-100 to-slate-200 bg-clip-text text-transparent">
                     Fiscal Wizard
                   </span>
@@ -87,25 +88,25 @@ const App = () => {
 
             </div>
             
-            <div className="max-w-2xl mx-auto space-y-4">
-              <p className="text-xl text-slate-100 font-light">
+            <div className="max-w-2xl mx-auto space-y-3 md:space-y-4">
+              <p className="text-lg md:text-xl text-slate-100 font-light">
                 Calculadora Automática de IRPF para Inversores
               </p>
-              <p className="text-slate-300 text-lg">
+              <p className="text-base md:text-lg text-slate-300">
                 Genera automáticamente los valores exactos para cada casilla de la declaración a partir de tus operaciones Interactive Brokers
               </p>
             </div>
             
-            <div className="mt-10 flex items-center justify-center space-x-8">
-              <div className="flex items-center space-x-3 bg-white/10 backdrop-blur px-4 py-2 rounded-full">
+            <div className="mt-6 md:mt-10 flex flex-col md:flex-row items-center justify-center md:space-x-6 lg:space-x-8 space-y-3 md:space-y-0">
+              <div className="flex items-center space-x-3 bg-white/10 backdrop-blur px-3 md:px-4 py-2 rounded-full">
                 <div className="w-3 h-3 rounded-full bg-white"></div>
                 <span className="text-sm text-slate-200">Cálculo Preciso</span>
               </div>
-              <div className="flex items-center space-x-3 bg-white/10 backdrop-blur px-4 py-2 rounded-full">
+              <div className="flex items-center space-x-3 bg-white/10 backdrop-blur px-3 md:px-4 py-2 rounded-full">
                 <div className="w-3 h-3 rounded-full bg-white"></div>
                 <span className="text-sm text-slate-200">Resultados Detallados</span>
               </div>
-              <div className="flex items-center space-x-3 bg-white/10 backdrop-blur px-4 py-2 rounded-full">
+              <div className="flex items-center space-x-3 bg-white/10 backdrop-blur px-3 md:px-4 py-2 rounded-full">
                 <div className="w-3 h-3 rounded-full bg-white"></div>
                 <span className="text-sm text-slate-200">Cumplimiento Hacienda</span>
               </div>
@@ -115,50 +116,7 @@ const App = () => {
       </header>
       
       {/* Progress indicator */}
-      <div className="bg-white border-b border-slate-200">
-        <div className="container mx-auto px-6 py-6">
-          <div className="flex items-center justify-center space-x-12">
-            <div className="status-indicator">
-              <div className={`w-8 h-8 rounded-full flex items-center justify-center ${
-                state.step === 'upload' ? 'bg-blue-600 text-white' : 'bg-slate-200 text-slate-600'
-              }`}>
-                {state.step === 'upload' ? '1' : '✓'}
-              </div>
-              <span className={state.step === 'upload' ? 'text-blue-600' : 'text-slate-600'}>
-                Subir Documento
-              </span>
-            </div>
-            
-            <div className="w-16 h-0.5 bg-slate-300"></div>
-            
-            <div className="status-indicator">
-              <div className={`w-8 h-8 rounded-full flex items-center justify-center ${
-                state.step === 'loading' ? 'bg-blue-600 text-white animate-pulse' : 
-                state.step === 'report' ? 'bg-green-600 text-white' : 'bg-slate-200 text-slate-600'
-              }`}>
-                {state.step === 'loading' ? '⟳' : state.step === 'report' ? '✓' : '2'}
-              </div>
-              <span className={state.step === 'loading' ? 'text-blue-600' : 
-                            state.step === 'report' ? 'text-green-600' : 'text-slate-600'}>
-                Procesamiento
-              </span>
-            </div>
-            
-            <div className="w-16 h-0.5 bg-slate-300"></div>
-            
-            <div className="status-indicator">
-              <div className={`w-8 h-8 rounded-full flex items-center justify-center ${
-                state.step === 'report' ? 'bg-green-600 text-white' : 'bg-slate-200 text-slate-600'
-              }`}>
-                {state.step === 'report' ? '✓' : '3'}
-              </div>
-              <span className={state.step === 'report' ? 'text-green-600' : 'text-slate-600'}>
-                Informe Fiscal
-              </span>
-            </div>
-          </div>
-        </div>
-      </div>
+      <StepIndicator currentStep={state.step} />
       
       <div className="flex-grow container mx-auto px-6 py-12">
         {/* Main Content */}
@@ -195,10 +153,10 @@ const App = () => {
                 <div className="card overflow-hidden">
                   {/* Card header */}
                   <div className="bg-gradient-to-r from-slate-900 to-slate-800 text-white px-8 py-6">
-                    <div className="flex items-center justify-between">
+                    <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                       <div>
                         <h3 className="text-2xl font-bold mb-2">Cálculo IRPF y Casillas Fiscales</h3>
-                        <div className="flex items-center space-x-4 text-slate-300">
+                        <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 text-slate-300">
                           <span className="flex items-center">
                             <span className="mr-2">🆔</span>
                             ID: {state.reportId}
@@ -210,13 +168,7 @@ const App = () => {
                         </div>
                       </div>
                       
-                      <div className="text-right">
-                        <div className="text-sm text-slate-400 mb-1">Estado</div>
-                        <div className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-green-500/20 text-green-100 border border-green-500/30">
-                          <span className="w-2 h-2 bg-green-400 rounded-full mr-2 animate-pulse"></span>
-                          Validado
-                        </div>
-                      </div>
+
                     </div>
                   </div>
 
@@ -249,23 +201,7 @@ const App = () => {
                       </div>
                     </div>
 
-                    {/* Report preview */}
-                    <div>
-                      <h4 className="text-lg font-semibold text-slate-900 mb-4 flex items-center">
-                        <span className="mr-2">👁️</span>
-                        Vista Previa del Informe
-                      </h4>
-                      <div className="bg-slate-50 rounded-lg border border-slate-200 p-6">
-                        <div className="bg-white rounded-md border border-slate-200 p-4 max-h-96 overflow-y-auto">
-                          <pre className="text-xs text-slate-600 whitespace-pre-wrap font-mono">
-                            {state.reportHtml.length > 800 
-                              ? state.reportHtml.substring(0, 800) + '\n\n[... contenido del informe ...]' 
-                              : state.reportHtml
-                            }
-                          </pre>
-                        </div>
-                      </div>
-                    </div>
+
 
                     {/* Action buttons */}
                     <div className="flex flex-col sm:flex-row gap-4 justify-center pt-6 border-t border-slate-200">

@@ -62,19 +62,19 @@ export const FileUpload: React.FC<FileUploadProps> = ({ onUpload, isLoading = fa
         >
           <input {...getInputProps()} />
           
-          <div className="relative z-10 space-y-6">
+          <div className="relative z-10 space-y-4 md:space-y-6">
             {/* Icon with background */}
             <div className="flex justify-center">
               <div className="relative">
-                <div className="w-20 h-20 bg-blue-100 rounded-full flex items-center justify-center group-hover:bg-blue-200 transition-colors">
+                <div className="w-16 h-16 md:w-20 md:h-20 bg-blue-100 rounded-full flex items-center justify-center group-hover:bg-blue-200 transition-colors">
                   {isLoading ? (
-                    <div className="animate-spin text-blue-600 text-2xl">⟳</div>
+                    <div className="animate-spin text-blue-600 text-xl md:text-2xl">⟳</div>
                   ) : (
-                    <div className="text-blue-600 text-3xl">📄</div>
+                    <div className="text-blue-600 text-2xl md:text-3xl">📄</div>
                   )}
                 </div>
                 {!isLoading && (
-                  <div className="absolute -bottom-1 -right-1 w-6 h-6 bg-green-500 rounded-full flex items-center justify-center">
+                  <div className="absolute -bottom-1 -right-1 w-5 h-5 md:w-6 md:h-6 bg-green-500 rounded-full flex items-center justify-center">
                     <span className="text-white text-xs">+</span>
                   </div>
                 )}
@@ -82,31 +82,31 @@ export const FileUpload: React.FC<FileUploadProps> = ({ onUpload, isLoading = fa
             </div>
             
             {/* Content */}
-            <div className="space-y-3">
+            <div className="space-y-2 md:space-y-3">
               {isLoading ? (
                 <>
-                  <h3 className="text-xl font-semibold text-slate-900">
+                  <h3 className="text-lg md:text-xl font-semibold text-slate-900">
                     Procesando documento...
                   </h3>
-                  <p className="text-slate-600">
+                  <p className="text-sm md:text-base text-slate-600">
                     Su fichero CSV está siendo analizado y procesado
                   </p>
                 </>
               ) : isDragActive ? (
                 <>
-                  <h3 className="text-xl font-semibold text-blue-600">
+                  <h3 className="text-lg md:text-xl font-semibold text-blue-600">
                     Suelte el fichero aquí
                   </h3>
-                  <p className="text-blue-600/80">
+                  <p className="text-sm md:text-base text-blue-600/80">
                     El documento será validado automáticamente
                   </p>
                 </>
               ) : (
                 <>
-                  <h3 className="text-xl font-semibold text-slate-900">
+                  <h3 className="text-lg md:text-xl font-semibold text-slate-900 text-center px-2">
                     Arrastre su CSV aquí, o haga clic para seleccionar
                   </h3>
-                  <p className="text-slate-600">
+                  <p className="text-sm md:text-base text-slate-600 text-center px-2">
                     Formato CSV de Interactive Brokers Activity Statement
                   </p>
                 </>
@@ -116,9 +116,10 @@ export const FileUpload: React.FC<FileUploadProps> = ({ onUpload, isLoading = fa
             {/* Action button */}
             {!isLoading && !isDragActive && (
               <div className="flex justify-center">
-                <span className="inline-flex items-center px-6 py-3 border border-slate-300 shadow-sm text-sm font-medium rounded-lg text-slate-700 bg-white hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all">
+                <span className="inline-flex items-center px-6 py-3 md:px-6 md:py-3 border border-slate-300 shadow-sm text-sm font-medium rounded-lg text-slate-700 bg-white hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all min-h-[44px]">
                   <span className="mr-2">📁</span>
-                  Examinar ficheros
+                  <span className="hidden sm:inline">Examinar ficheros</span>
+                  <span className="sm:hidden">Seleccionar</span>
                 </span>
               </div>
             )}
