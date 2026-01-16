@@ -1,6 +1,9 @@
 console.log('✅ api.ts loaded');
 
-const API_BASE = 'http://localhost:8080/api';
+// Use environment variable for API base URL, fallback to localhost for development
+const API_BASE = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8080/api';
+
+console.log('🔗 API Base URL:', API_BASE);
 
 export interface UploadResponse {
   id: string;

@@ -1,0 +1,33 @@
+{
+  "version": 2,
+  "name": "fiscal-wizard-frontend",
+  "builds": [
+    {
+      "src": "package.json",
+      "use": "@vercel/static-build",
+      "config": {
+        "distDir": "dist"
+      }
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "/index.html"
+    }
+  ],
+  "env": {
+    "VITE_API_BASE_URL": "@api_base_url"
+  },
+  "build": {
+    "env": {
+      "VITE_API_BASE_URL": "@api_base_url"
+    }
+  },
+  "functions": {},
+  "outputDirectory": "dist",
+  "installCommand": "npm install",
+  "buildCommand": "npm run build",
+  "devCommand": "npm run dev",
+  "framework": "vite"
+}
