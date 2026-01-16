@@ -128,17 +128,6 @@ export const FileUpload: React.FC<FileUploadProps> = ({
                 </>
               )}
             </div>
-
-            {/* Action button */}
-            {!isLoading && !isDragActive && (
-              <div className="flex justify-center">
-                <span className="inline-flex items-center px-6 py-3 md:px-6 md:py-3 border border-slate-300 shadow-sm text-sm font-medium rounded-lg text-slate-700 bg-white hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all min-h-[44px]">
-                  <span className="mr-2">📁</span>
-                  <span className="hidden sm:inline">Examinar ficheros</span>
-                  <span className="sm:hidden">Seleccionar</span>
-                </span>
-              </div>
-            )}
           </div>
         </div>
 
