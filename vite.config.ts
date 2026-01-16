@@ -26,6 +26,10 @@ export default defineConfig({
     target: 'esnext',
     chunkSizeWarningLimit: 1000
   },
+  // SPA fallback for Vercel
+  preview: {
+    port: 3000
+  },
   // Define global constants
   define: {
     __APP_VERSION__: JSON.stringify(process.env.npm_package_version || '1.0.0')
