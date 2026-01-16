@@ -1,10 +1,9 @@
 import React from 'react';
+import { MainLayout } from '@/components/layout';
 
 export default function TestPage() {
   return (
-    <div className="min-h-screen bg-slate-50 p-8">
-      <h1 className="text-3xl font-bold mb-8">Style Test Page</h1>
-
+    <MainLayout>
       <div className="space-y-6">
         {/* Test buttons */}
         <div>
@@ -27,7 +26,7 @@ export default function TestPage() {
         {/* Test dropzone */}
         <div>
           <h2 className="text-xl font-semibold mb-4">Dropzone</h2>
-          <div className="dropzone">
+          <div className="dropzone p-8">
             <p>Drag and drop files here</p>
           </div>
         </div>
@@ -35,11 +34,11 @@ export default function TestPage() {
         {/* Test dragover */}
         <div>
           <h2 className="text-xl font-semibold mb-4">Dropzone (Drag Over)</h2>
-          <div className="dropzone dragover">
+          <div className="dropzone dragover p-8">
             <p>Files are being dragged over</p>
           </div>
         </div>
       </div>
-    </div>
+    </MainLayout>
   );
 }
