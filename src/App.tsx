@@ -97,20 +97,7 @@ const App = () => {
               </p>
             </div>
             
-            <div className="mt-6 md:mt-10 flex flex-col md:flex-row items-center justify-center md:space-x-6 lg:space-x-8 space-y-3 md:space-y-0">
-              <div className="flex items-center space-x-3 bg-white/10 backdrop-blur px-3 md:px-4 py-2 rounded-full">
-                <div className="w-3 h-3 rounded-full bg-white"></div>
-                <span className="text-sm text-slate-200">Cálculo Preciso</span>
-              </div>
-              <div className="flex items-center space-x-3 bg-white/10 backdrop-blur px-3 md:px-4 py-2 rounded-full">
-                <div className="w-3 h-3 rounded-full bg-white"></div>
-                <span className="text-sm text-slate-200">Resultados Detallados</span>
-              </div>
-              <div className="flex items-center space-x-3 bg-white/10 backdrop-blur px-3 md:px-4 py-2 rounded-full">
-                <div className="w-3 h-3 rounded-full bg-white"></div>
-                <span className="text-sm text-slate-200">Cumplimiento Hacienda</span>
-              </div>
-            </div>
+
           </div>
         </div>
       </header>
