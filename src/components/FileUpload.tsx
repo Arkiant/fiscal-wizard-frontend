@@ -1,55 +1,64 @@
-import React, { useState, useCallback } from 'react';
-import { useDropzone } from 'react-dropzone';
-import { 
+import React, { useState, useCallback } from "react";
+import { useDropzone } from "react-dropzone";
+import {
   InformationCircleIcon,
-  QuestionMarkCircleIcon 
-} from '@heroicons/react/24/outline';
-import { validateFile } from '../utils/validation';
-import type { FileUploadProps } from '../types';
+  QuestionMarkCircleIcon,
+} from "@heroicons/react/24/outline";
+import { validateFile } from "../utils/validation";
+import type { FileUploadProps } from "../types";
 
-console.log('✅ FileUpload.tsx loading...');
+console.log("✅ FileUpload.tsx loading...");
 
-export const FileUpload: React.FC<FileUploadProps> = ({ onUpload, isLoading = false, error, onShowTutorial }) => {
+export const FileUpload: React.FC<FileUploadProps> = ({
+  onUpload,
+  isLoading = false,
+  error,
+  onShowTutorial,
+}) => {
   const [dragActive, setDragActive] = useState(false);
 
-  const onDrop = useCallback((acceptedFiles: File[]) => {
-    const file = acceptedFiles[0];
-    if (!file) return;
+  const onDrop = useCallback(
+    (acceptedFiles: File[]) => {
+      const file = acceptedFiles[0];
+      if (!file) return;
 
-    console.log('📤 File dropped/selected:', file);
+      console.log("📤 File dropped/selected:", file);
 
-    const validation = validateFile(file);
-    if (!validation.valid) {
-      console.error('❌ Validation failed:', validation.error);
-      // Error will be handled by parent component
-      return;
-    }
+      const validation = validateFile(file);
+      if (!validation.valid) {
+        console.error("❌ Validation failed:", validation.error);
+        // Error will be handled by parent component
+        return;
+      }
 
-    console.log('✅ File validation passed, calling onUpload');
-    onUpload(file);
-  }, [onUpload]);
+      console.log("✅ File validation passed, calling onUpload");
+      onUpload(file);
+    },
+    [onUpload]
+  );
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
     accept: {
-      'text/csv': ['.csv'],
+      "text/csv": [".csv"],
     },
     maxSize: 1024 * 1024, //1MB
     multiple: false,
     disabled: isLoading,
   });
 
-  console.log('📝 FileUpload component initialized');
+  console.log("📝 FileUpload component initialized");
 
   return (
-    <div className="max-w-3xl mx-auto">
-      <div className="bg-white rounded-2xl shadow-xl border border-slate-200 p-8">
+    <div className="max-w-4xl mx-auto space-y-8">
+      <div className="card bg-white p-6 md:p-8">
         <div className="text-center mb-8">
           <h2 className="text-2xl font-semibold text-slate-900 mb-3">
             Subir Operaciones de Inversión
           </h2>
           <p className="text-slate-600">
-            Carga tu CSV de Interactive Brokers para calcular automáticamente el IRPF y obtener los valores exactos para cada casilla
+            Carga tu CSV de Interactive Brokers para calcular automáticamente el
+            IRPF y obtener los valores exactos para cada casilla
           </p>
         </div>
 
@@ -57,22 +66,25 @@ export const FileUpload: React.FC<FileUploadProps> = ({ onUpload, isLoading = fa
           {...getRootProps()}
           className={`
             dropzone group relative overflow-hidden
-            ${isDragActive 
-              ? 'border-blue-600 bg-blue-50/50' 
-              : 'border-slate-300 hover:border-slate-400'
+            ${
+              isDragActive
+                ? "border-blue-600 bg-blue-50/50"
+                : "border-slate-300 hover:border-slate-400"
             }
-            ${isLoading ? 'opacity-60' : 'cursor-pointer hover:bg-slate-50'}
+            ${isLoading ? "opacity-60" : "cursor-pointer hover:bg-slate-50"}
           `}
         >
           <input {...getInputProps()} />
-          
+
           <div className="relative z-10 space-y-4 md:space-y-6">
             {/* Icon with background */}
             <div className="flex justify-center">
               <div className="relative">
                 <div className="w-16 h-16 md:w-20 md:h-20 bg-blue-100 rounded-full flex items-center justify-center group-hover:bg-blue-200 transition-colors">
                   {isLoading ? (
-                    <div className="animate-spin text-blue-600 text-xl md:text-2xl">⟳</div>
+                    <div className="animate-spin text-blue-600 text-xl md:text-2xl">
+                      ⟳
+                    </div>
                   ) : (
                     <div className="text-blue-600 text-2xl md:text-3xl">📄</div>
                   )}
@@ -84,7 +96,7 @@ export const FileUpload: React.FC<FileUploadProps> = ({ onUpload, isLoading = fa
                 )}
               </div>
             </div>
-            
+
             {/* Content */}
             <div className="space-y-2 md:space-y-3">
               {isLoading ? (
@@ -116,7 +128,7 @@ export const FileUpload: React.FC<FileUploadProps> = ({ onUpload, isLoading = fa
                 </>
               )}
             </div>
-            
+
             {/* Action button */}
             {!isLoading && !isDragActive && (
               <div className="flex justify-center">
@@ -129,20 +141,22 @@ export const FileUpload: React.FC<FileUploadProps> = ({ onUpload, isLoading = fa
             )}
           </div>
         </div>
-        
+
         {/* Error display */}
         {error && (
           <div className="mt-6 p-4 bg-red-50 border border-red-200 rounded-xl">
             <div className="flex items-start">
               <span className="text-red-600 mr-3 mt-0.5">⚠️</span>
               <div>
-                <p className="text-red-900 font-semibold mb-1">Error en la validación</p>
+                <p className="text-red-900 font-semibold mb-1">
+                  Error en la validación
+                </p>
                 <p className="text-red-800 text-sm">{error}</p>
               </div>
             </div>
           </div>
         )}
-        
+
         {/* Requirements */}
         {!isLoading && !error && (
           <div className="mt-8 p-6 bg-slate-50 rounded-xl">
@@ -153,7 +167,9 @@ export const FileUpload: React.FC<FileUploadProps> = ({ onUpload, isLoading = fa
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
               <div className="flex items-start space-x-2">
                 <span className="text-green-600 mt-0.5">✓</span>
-                <span className="text-slate-700">Formato CSV Interactive Brokers</span>
+                <span className="text-slate-700">
+                  Formato CSV Interactive Brokers
+                </span>
               </div>
               <div className="flex items-start space-x-2">
                 <span className="text-green-600 mt-0.5">✓</span>
@@ -161,14 +177,18 @@ export const FileUpload: React.FC<FileUploadProps> = ({ onUpload, isLoading = fa
               </div>
               <div className="flex items-start space-x-2">
                 <span className="text-green-600 mt-0.5">✓</span>
-                <span className="text-slate-700">Columnas requeridas completas</span>
+                <span className="text-slate-700">
+                  Columnas requeridas completas
+                </span>
               </div>
             </div>
 
-            
             <div className="mt-4 p-3 bg-amber-50 border border-amber-200 rounded-lg">
               <p className="text-xs text-amber-800">
-                <strong>Aviso:</strong> Verifique la exactitud de sus datos. Esta herramienta realiza cálculos matemáticos, pero no se responsabiliza de errores en los datos originales. Consulte con un experto fiscal para validación.
+                <strong>Aviso:</strong> Verifique la exactitud de sus datos.
+                Esta herramienta realiza cálculos matemáticos, pero no se
+                responsabiliza de errores en los datos originales. Consulte con
+                un experto fiscal para validación.
               </p>
             </div>
           </div>
@@ -182,7 +202,8 @@ export const FileUpload: React.FC<FileUploadProps> = ({ onUpload, isLoading = fa
               ¿Necesitas ayuda para generar el CSV?
             </h4>
             <p className="text-slate-600 mb-4">
-              Sigue nuestro tutorial paso a paso para aprender a generar el archivo CSV desde Interactive Brokers usando Consultas Flex.
+              Sigue nuestro tutorial paso a paso para aprender a generar el
+              archivo CSV desde Interactive Brokers usando Consultas Flex.
             </p>
             <button
               onClick={onShowTutorial}
