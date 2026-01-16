@@ -32,6 +32,7 @@ He rediseñado completamente el frontend para darle un aspecto profesional y ser
 - **Certificaciones** - Menciones de AEAT, cumplimiento normativo
 - **Procesamiento Seguro** - Indicadores de encriptación SSL/TLS
 - **Brand Profesional** - Identidad visual corporativa
+- **Enlaces Compartibles** - URLs directas para compartir reportes (`/reporte/:id/preview`)
 
 ### 📱 **Componentes Mejorados**
 
@@ -64,6 +65,17 @@ Ahora parece un producto fiscal serio y profesional, como si fuera usado por:
 - **Despachos de asesores fiscales**
 - **Servicios de contabilidad profesional**
 - **Instituciones financieras**
+
+### 🔗 **Nueva Funcionalidad: Vista Previa de Reportes**
+
+**URL directa**: `/reporte/{id}/preview`
+
+- **Acceso directo** a reportes generados (válido 24h)
+- **Enlaces compartibles** para asesores fiscales
+- **Interfaz completa** con descarga del informe
+- **Recuperación** sin necesidad de reprocesar
+
+**Ejemplo**: `https://fiscal-wizard.com/reporte/abc123/preview`
 
 ---
 
