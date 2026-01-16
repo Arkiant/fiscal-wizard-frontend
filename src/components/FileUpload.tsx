@@ -160,9 +160,7 @@ export const FileUpload: React.FC<FileUploadProps> = ({ onUpload, isLoading = fa
                 <span className="text-slate-700">Columnas requeridas completas</span>
               </div>
             </div>
-            <p className="text-xs text-slate-500 mt-4">
-              Columnas necesarias: Currency, AssetCategory, Symbol, Date/Time, Quantity, T. Price, Proceeds, Commission, etc.
-            </p>
+
             
             <div className="mt-4 p-3 bg-amber-50 border border-amber-200 rounded-lg">
               <p className="text-xs text-amber-800">
