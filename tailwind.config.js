@@ -26,4 +26,11 @@ export default {
     },
   },
   plugins: [],
+  safelist: [
+    'dropzone',
+    'card',
+    'btn-primary',
+    'btn-secondary',
+    'gradient-bg',
+  ],
 }

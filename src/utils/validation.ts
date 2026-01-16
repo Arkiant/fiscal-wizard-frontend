@@ -25,3 +25,15 @@ export function validateFile(file: File): { valid: boolean; error?: string } {
   console.log('✅ File validation passed');
   return { valid: true };
 }
+
+export function downloadHtmlFile(htmlContent: string, reportId: string) {
+  const blob = new Blob([htmlContent], { type: 'text/html' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `calculo_irpf_${reportId}.html`;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}

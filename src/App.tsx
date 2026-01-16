@@ -1,10 +1,13 @@
+'use client'
+
 import React, { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { FileUpload } from './components/FileUpload';
 import { Loading } from './components/Loading';
 import StepIndicator from './components/StepIndicator';
 import TutorialPage from './components/TutorialPage';
 import { taxApi } from './services/api';
-import './index.css';
+
 
 interface AppState {
   step: 'upload' | 'loading' | 'report';
@@ -13,19 +16,16 @@ interface AppState {
   error: string | null;
 }
 
-type PageType = 'main' | 'tutorial';
-
 console.log('🎯 App.tsx loading...');
 
 const App = () => {
+  const router = useRouter();
   const [state, setState] = useState<AppState>({
     step: 'upload',
     reportId: null,
     reportHtml: null,
     error: null,
   });
-  
-  const [currentPage, setCurrentPage] = useState<PageType>('main');
 
   const handleFileUpload = async (file: File) => {
     try {
@@ -75,25 +75,15 @@ const App = () => {
 
   const showTutorial = () => {
     console.log('📚 Navigating to tutorial page...');
-    setCurrentPage('tutorial');
-  };
-
-  const goBackToMain = () => {
-    console.log('🏠 Returning to main page...');
-    setCurrentPage('main');
+    router.push('/tutorial');
   };
 
   console.log('📱 App state:', state);
 
-  // Show tutorial page if requested
-  if (currentPage === 'tutorial') {
-    return <TutorialPage onBack={goBackToMain} />;
-  }
-
   return (
     <div className="min-h-screen bg-slate-50 flex flex-col">
       {/* Professional Header */}
-      <header className="gradient-bg text-white">
+      <header className="text-white" style={{background: 'linear-gradient(135deg, #0f172a 0%, #1e293b 100%)'}}>
         <div className="container mx-auto px-4 py-8 md:px-6 md:py-12">
           <div className="text-center">
             <div className="mb-4 md:mb-6">
@@ -131,14 +121,25 @@ const App = () => {
           {state.step === 'upload' && (
             <FileUpload 
               onUpload={handleFileUpload} 
-              isLoading={state.step === 'loading'}
+              isLoading={state.step === 'loading' as any}
               error={state.error}
               onShowTutorial={showTutorial}
             />
           )}
           
           {state.step === 'loading' && (
-            <Loading message="Processing your tax report..." />
+            <div className="max-w-4xl mx-auto">
+              <div className="card overflow-hidden">
+                {/* Card header */}
+                <div className="bg-gradient-to-r from-slate-900 to-slate-800 text-white px-8 py-6">
+                  <h3 className="text-2xl font-bold">Procesando Informe Fiscal</h3>
+                </div>
+                {/* Card body */}
+                <div className="p-8">
+                  <Loading message="Processing your tax report..." />
+                </div>
+              </div>
+            </div>
           )}
           
           {state.step === 'report' && state.reportHtml && (
@@ -213,19 +214,19 @@ const App = () => {
 
                     {/* Action buttons */}
                     <div className="flex flex-col sm:flex-row gap-4 justify-center pt-6 border-t border-slate-200">
-                      <a
-                        href={`data:text/html;charset=utf-8,${encodeURIComponent(state.reportHtml)}`}
-                        download={`calculo_irpf_${state.reportId}.html`}
-                        className="btn-primary flex items-center justify-center text-decoration-none"
-                      >
+                       <a
+                         href={`data:text/html;charset=utf-8,${encodeURIComponent(state.reportHtml)}`}
+                         download={`calculo_irpf_${state.reportId}.html`}
+                         className="btn-primary flex items-center justify-center text-decoration-none"
+                       >
                         <span className="mr-2">📥</span>
                         Descargar Informe Completo
                       </a>
                       
-                      <button
-                        onClick={resetApplication}
-                        className="btn-secondary flex items-center justify-center"
-                      >
+                       <button
+                         onClick={resetApplication}
+                         className="btn-secondary flex items-center justify-center"
+                       >
                         <span className="mr-2">📊</span>
                         Procesar Nuevo Documento
                       </button>
@@ -239,7 +240,7 @@ const App = () => {
       </div>
 
         {/* Professional Footer */}
-        <footer className="mt-20 bg-slate-900 text-white w-full">
+        <footer className="mt-20 text-white w-full" style={{background: 'linear-gradient(135deg, #0f172a 0%, #1e293b 100%)'}}>
           <div className="container mx-auto px-6 py-12">
             <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
               {/* App info */}

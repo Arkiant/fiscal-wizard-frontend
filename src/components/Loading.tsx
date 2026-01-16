@@ -51,14 +51,7 @@ export const Loading: React.FC<LoadingProps> = ({ message = 'Processing your tax
         </div>
       </div>
       
-      <style jsx>{`
-        .animation-delay-75 {
-          animation-delay: 75ms;
-        }
-        .animation-delay-150 {
-          animation-delay: 150ms;
-        }
-      `}</style>
+
     </div>
   );
 };

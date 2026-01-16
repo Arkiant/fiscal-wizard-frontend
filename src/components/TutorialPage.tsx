@@ -1,19 +1,21 @@
+'use client'
+
+'use client'
+
 import React from 'react';
 import { ArrowLeftIcon } from '@heroicons/react/24/outline';
+import { useRouter } from 'next/navigation';
 
-interface TutorialPageProps {
-  onBack: () => void;
-}
-
-export default function TutorialPage({ onBack }: TutorialPageProps) {
+export default function TutorialPage() {
+  const router = useRouter();
   return (
     <div className="min-h-screen bg-slate-50 flex flex-col">
       {/* Header */}
-      <header className="gradient-bg text-white">
+      <header className="text-white" style={{background: 'linear-gradient(135deg, #0f172a 0%, #1e293b 100%)'}}>
         <div className="container mx-auto px-4 py-8 md:px-6 md:py-12">
           <div className="flex items-center justify-between">
             <button
-              onClick={onBack}
+              onClick={() => router.back()}
               className="flex items-center space-x-2 bg-white/10 backdrop-blur px-4 py-2 rounded-full hover:bg-white/20 transition-colors"
             >
               <ArrowLeftIcon className="w-5 h-5" />
@@ -37,7 +39,7 @@ export default function TutorialPage({ onBack }: TutorialPageProps) {
         <div className="max-w-4xl mx-auto space-y-8">
           
           {/* Paso 1 */}
-          <div className="card bg-white p-6 md:p-8">
+          <div className="bg-white rounded-xl shadow-lg border border-slate-200 p-6 md:p-8">
             <div className="flex items-start space-x-4">
               <div className="w-12 h-12 bg-blue-500 text-white rounded-full flex items-center justify-center text-xl font-bold flex-shrink-0">
                 1
@@ -65,7 +67,7 @@ export default function TutorialPage({ onBack }: TutorialPageProps) {
           </div>
 
           {/* Paso 2 */}
-          <div className="card bg-white p-6 md:p-8">
+          <div className="bg-white rounded-xl shadow-lg border border-slate-200 p-6 md:p-8">
             <div className="flex items-start space-x-4">
               <div className="w-12 h-12 bg-green-500 text-white rounded-full flex items-center justify-center text-xl font-bold flex-shrink-0">
                 2
@@ -112,7 +114,7 @@ export default function TutorialPage({ onBack }: TutorialPageProps) {
           </div>
 
           {/* Paso 3 */}
-          <div className="card bg-white p-6 md:p-8">
+          <div className="bg-white rounded-xl shadow-lg border border-slate-200 p-6 md:p-8">
             <div className="flex items-start space-x-4">
               <div className="w-12 h-12 bg-purple-500 text-white rounded-full flex items-center justify-center text-xl font-bold flex-shrink-0">
                 3
@@ -163,7 +165,7 @@ export default function TutorialPage({ onBack }: TutorialPageProps) {
           </div>
 
           {/* Paso 4 */}
-          <div className="card bg-white p-6 md:p-8">
+          <div className="bg-white rounded-xl shadow-lg border border-slate-200 p-6 md:p-8">
             <div className="flex items-start space-x-4">
               <div className="w-12 h-12 bg-orange-500 text-white rounded-full flex items-center justify-center text-xl font-bold flex-shrink-0">
                 4
@@ -214,8 +216,8 @@ export default function TutorialPage({ onBack }: TutorialPageProps) {
       <footer className="bg-slate-100 border-t border-slate-200 py-6">
         <div className="container mx-auto px-4 text-center">
           <button
-            onClick={onBack}
-            className="btn-primary inline-flex items-center"
+            onClick={() => router.back()}
+            className="bg-slate-900 hover:bg-slate-800 text-white px-6 py-3 rounded-lg font-medium transition-all duration-200 shadow-sm hover:shadow-md min-h-[44px] min-w-[44px] inline-flex items-center"
           >
             <ArrowLeftIcon className="w-4 h-4 mr-2" />
             Volver al Upload

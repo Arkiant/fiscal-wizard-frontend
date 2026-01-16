@@ -1,7 +1,7 @@
 console.log('✅ api.ts loaded');
 
-// Use environment variable for API base URL, fallback to production URL for safety
-const API_BASE = import.meta.env.VITE_API_BASE_URL || 'https://fiscal-wizard-api.onrender.com/api';
+// Use Next.js API routes
+const API_BASE = '/api';
 
 console.log('🔗 API Base URL:', API_BASE);
 
